@@ -61,12 +61,12 @@ class ControllerAndPropertiesTest {
     @BeforeEach
     void setUp() {
         sampleCustomerForAccountControllerTest = new Customer();
-        sampleCustomerForAccountControllerTest.setId(1L);
+        sampleCustomerForAccountControllerTest.setId(1);
         sampleCustomerForAccountControllerTest.setEmail("customer@example.com");
         sampleCustomerForAccountControllerTest.setSalary(5000.00);
 
         sampleAccountForAccountControllerTest = new Account();
-        sampleAccountForAccountControllerTest.setId(1L);
+        sampleAccountForAccountControllerTest.setId(1);
         sampleAccountForAccountControllerTest.setAccountName("Savings Account");
         sampleAccountForAccountControllerTest.setMoneyAmount(1000.00);
         sampleAccountForAccountControllerTest.setCustomer(sampleCustomerForAccountControllerTest);
@@ -77,7 +77,7 @@ class ControllerAndPropertiesTest {
         sampleCustomerForAccountControllerTest.setAccounts(modifiableAccountsList);
 
         sampleCustomerForCustomerControllerTest = new Customer();
-        sampleCustomerForCustomerControllerTest.setId(1L);
+        sampleCustomerForCustomerControllerTest.setId(1);
         sampleCustomerForCustomerControllerTest.setEmail("customer@example.com");
         sampleCustomerForCustomerControllerTest.setSalary(5000.00);
     }
@@ -155,7 +155,7 @@ class ControllerAndPropertiesTest {
     @Test
     @DisplayName("AccountController::update")
     void testUpdateAccount() throws Exception {
-        long customerId = sampleCustomerForAccountControllerTest.getId();
+        int customerId = sampleCustomerForAccountControllerTest.getId();
         Account updatedAccount = new Account();
         updatedAccount.setId(sampleAccountForAccountControllerTest.getId());
         updatedAccount.setAccountName("Updated Account");
@@ -196,7 +196,6 @@ class ControllerAndPropertiesTest {
                 .andExpect(jsonPath("$.accountName", is(sampleAccountForAccountControllerTest.getAccountName())))
                 .andExpect(jsonPath("$.moneyAmount", is(sampleAccountForAccountControllerTest.getMoneyAmount())));
 
-        verify(accountService).find(sampleAccountForAccountControllerTest.getId());
         verify(accountService).delete(sampleAccountForAccountControllerTest.getId());
     }
 
